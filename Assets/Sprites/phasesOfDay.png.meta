@@ -1,0 +1,347 @@
+fileFormatVersion: 2
+guid: 29b2b8a612939b1439384d660fa24ebb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -2410147905268220253
+    second: phasesOfDay_0
+  - first:
+      213: 1605759829143969590
+    second: phasesOfDay_1
+  - first:
+      213: -2571962092936360490
+    second: phasesOfDay_2
+  - first:
+      213: -4016190063949810049
+    second: phasesOfDay_3
+  - first:
+      213: 905393142864260200
+    second: phasesOfDay_4
+  - first:
+      213: 5151915546507568537
+    second: phasesOfDay_5
+  - first:
+      213: 5036589575377370960
+    second: phasesOfDay_6
+  - first:
+      213: -2609333851544460578
+    second: phasesOfDay_7
+  - first:
+      213: -51997580707472890
+    second: phasesOfDay_8
+  - first:
+      213: 2839463990986485735
+    second: phasesOfDay_9
+  - first:
+      213: 3851760968845052524
+    second: phasesOfDay_10
+  - first:
+      213: -3560718966436489664
+    second: phasesOfDay_11
+  - first:
+      213: -8023972377737267507
+    second: phasesOfDay_12
+  - first:
+      213: -831422306358119352
+    second: phasesOfDay_13
+  - first:
+      213: -5190574264928089928
+    second: phasesOfDay_14
+  - first:
+      213: -3890226866991311866
+    second: phasesOfDay_15
+  - first:
+      213: -747943492701162240
+    second: phasesOfDay_16
+  - first:
+      213: 8416520464968408885
+    second: phasesOfDay_17
+  - first:
+      213: -8518139890934839209
+    second: phasesOfDay_18
+  - first:
+      213: 8992791796379881419
+    second: phasesOfDay_19
+  - first:
+      213: -7272269505217076132
+    second: phasesOfDay_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: phasesOfDay_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 190
+        height: 190
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 60a50c0d974474ff0800000000000000
+      internalID: -51997580707472890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phasesOfDay_0
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 0
+        width: 190
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e8f96c8229021f41933b2da95c7fc31
+      internalID: -2410147905268220253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phasesOfDay_1
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 0
+        width: 190
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68d6ac043cf4afd42a238ff4f4659d17
+      internalID: 1605759829143969590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phasesOfDay_2
+      rect:
+        serializedVersion: 2
+        x: 614
+        y: 0
+        width: 190
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb6699577672ef04f8a32bb836005cbd
+      internalID: -2571962092936360490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phasesOfDay_3
+      rect:
+        serializedVersion: 2
+        x: 813
+        y: 0
+        width: 190
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9fcabf5c5690894d97ed9d3203f310f
+      internalID: -4016190063949810049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phasesOfDay_4
+      rect:
+        serializedVersion: 2
+        x: 1005
+        y: 0
+        width: 190
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4de37bc58fd366a48ab7a697a8103f39
+      internalID: 905393142864260200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 472c88df9ca9dcd418fd68cde4b19fce
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      phasesOfDay_0: -2410147905268220253
+      phasesOfDay_1: 1605759829143969590
+      phasesOfDay_10: 3851760968845052524
+      phasesOfDay_11: -3560718966436489664
+      phasesOfDay_12: -8023972377737267507
+      phasesOfDay_13: -831422306358119352
+      phasesOfDay_14: -5190574264928089928
+      phasesOfDay_15: -3890226866991311866
+      phasesOfDay_16: -747943492701162240
+      phasesOfDay_17: 8416520464968408885
+      phasesOfDay_18: -8518139890934839209
+      phasesOfDay_19: 8992791796379881419
+      phasesOfDay_2: -2571962092936360490
+      phasesOfDay_20: -7272269505217076132
+      phasesOfDay_21: 511237214
+      phasesOfDay_3: -4016190063949810049
+      phasesOfDay_4: 905393142864260200
+      phasesOfDay_5: 5151915546507568537
+      phasesOfDay_6: 5036589575377370960
+      phasesOfDay_7: -2609333851544460578
+      phasesOfDay_8: -51997580707472890
+      phasesOfDay_9: 2839463990986485735
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
