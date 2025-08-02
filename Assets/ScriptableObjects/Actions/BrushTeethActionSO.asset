@@ -13,19 +13,27 @@ MonoBehaviour:
   m_Name: BrushTeethActionSO
   m_EditorClassIdentifier: 
   label: Brush Teeth
-  baseSuccessChance: 80
+  baseSuccessChance: 0.8
   requiredWillpower: 1
-  successMoodAffect: 0
-  partialSuccessMoodAffect: 0
-  failureMoodAffect: 0
+  minMinutesDuration: 1
+  maxMinutesDuration: 3
   considerActionMessages:
   - They say you should brush for at least 2 minutes for a thorough cleaning.
   - It's such an easy little thing. Even I should be able to do it.
   - My breath reeks. I really need to brush.
   - I've been skipping this a lot. I can't keep slipping up.
   - I don't have to brush for a whole two minutes as long as I still brush.
+  shameType: 2
+  successWillpowerEffect: 0
+  successMoodEffect: 0
+  successWeightEffect: 0
   successMessage: My mouth feels clean and fresh!
+  partialSuccessWillpowerEffect: 0
+  partialSuccessMoodEffect: 0
+  partialSuccessWeightEffect: 0
   partialSuccessMessage: Two minutes is a bit too long... my breath is still fresh!
+  failureMoodEffect: 0
+  failureWeightEffect: 0
   failureMessages:
   - My breath still reeks. Yuck.
   - This is why I keep getting cavities.
@@ -33,5 +41,3 @@ MonoBehaviour:
   - These teeth need to last me my whole life. I need to take care of them.
   - Having tooth problems is so painful. I don't want that.
   - I can't afford to pay for dental work right now if I need it.
-  baseShameValue: 1
-  shameType: 2

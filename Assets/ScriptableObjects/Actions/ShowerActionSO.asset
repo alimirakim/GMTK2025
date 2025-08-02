@@ -13,24 +13,30 @@ MonoBehaviour:
   m_Name: ShowerActionSO
   m_EditorClassIdentifier: 
   label: Take a Shower
-  baseSuccessChance: 5
-  requiredWillpower: 20
-  successMoodAffect: 0
-  partialSuccessMoodAffect: 0
-  failureMoodAffect: 0
+  baseSuccessChance: 0.05
+  requiredWillpower: 60
+  minMinutesDuration: 15
+  maxMinutesDuration: 20
   considerActionMessages:
   - It should only take 20 minutes tops.
   - I know it'll make me feel refreshed and good about myself.
   - I don't think I can make myself do it.
   - People will start to notice if you don't.
   - I have to do it eventually...
+  shameType: 2
+  successWillpowerEffect: 0
+  successMoodEffect: 0
+  successWeightEffect: 0
   successMessage: I'm squeaky clean and total refreshed! I feel amazing!
+  partialSuccessWillpowerEffect: 0
+  partialSuccessMoodEffect: 0
+  partialSuccessWeightEffect: 0
   partialSuccessMessage: I washed my hair, so at least it's not itchy anymore.
+  failureMoodEffect: 0
+  failureWeightEffect: 0
   failureMessages:
   - I'll do it tomorrow. No one will notice.
   - It would make me tired anyways.
   - I'm starting to get grungy.
   - Do I smell bad? I probably smell bad.
   - My hair is itchy. I'm dirty. I feel gross.
-  baseShameValue: 5
-  shameType: 2

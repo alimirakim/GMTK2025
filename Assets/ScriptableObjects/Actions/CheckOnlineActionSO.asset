@@ -13,21 +13,20 @@ MonoBehaviour:
   m_Name: CheckOnlineActionSO
   m_EditorClassIdentifier: 
   label: Check the internet
-  baseSuccessChance: 0
+  baseSuccessChance: 1
   requiredWillpower: 0
-  minMinutesDuration: 0
-  maxMinutesDuration: 0
-  consecutiveFailures: 0
-  successMoodEffect: 0
-  partialSuccessMoodEffect: 0
-  failureMoodEffect: 0
-  successWillpowerEffect: 0
-  partialSuccessWillpowerEffect: 0
-  shameType: 0
-  successShameEffect: 0
-  partialSuccessShameEffect: 0
-  failureShameEffect: 0
+  minMinutesDuration: 30
+  maxMinutesDuration: 90
   considerActionMessages: []
+  shameType: 0
+  successWillpowerEffect: 0
+  successMoodEffect: 0
+  successWeightEffect: 0
   successMessage: 
+  partialSuccessWillpowerEffect: 0
+  partialSuccessMoodEffect: 0
+  partialSuccessWeightEffect: 0
   partialSuccessMessage: 
+  failureMoodEffect: 0
+  failureWeightEffect: 0
   failureMessages: []

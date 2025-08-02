@@ -14,6 +14,7 @@ public class TimeKeeper : MonoBehaviour
     [Header("Time")]
     [SerializeField] TextMeshProUGUI clockText;
     [SerializeField] DateTime currentTime;
+    [SerializeField] int minPerSecond = 1;
 
     [Header("Phase of Day")]
     [SerializeField] Image phaseOfDayImage;
@@ -27,7 +28,7 @@ public class TimeKeeper : MonoBehaviour
     [SerializeField] Image choiceTimerImage;
     bool isChoiceTimeActive = true;
     [SerializeField] float choiceTimeMax = 10f;
-    float choiceTimeLeft = 10f;
+    float choiceTimeLeft;
     float fillFraction;
 
     PhaseOfDay currentPhase = PhaseOfDay.Noon;
@@ -39,7 +40,19 @@ public class TimeKeeper : MonoBehaviour
     {
         currentTime = GetResetDayTime();
         dayCountText.text = $"Day {dayCount}";
+        choiceTimeLeft = choiceTimeMax;
     }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateClock();
+        UpdateChoiceTime();
+    }
+
+    public void EnableChoiceTime()
+    { isChoiceTimeActive = true; }
 
     void UpdateChoiceTime()
     {
@@ -59,19 +72,6 @@ public class TimeKeeper : MonoBehaviour
             }
             choiceTimerImage.fillAmount = fillFraction;
         }
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        UpdateClock();
-        UpdateChoiceTime();
-    }
-
-    public void EnableChoiceTime()
-    {
-        isChoiceTimeActive = true;
     }
 
     private DateTime GetResetDayTime()
@@ -82,7 +82,7 @@ public class TimeKeeper : MonoBehaviour
         minuteTimer += Time.deltaTime;
         if (minuteTimer > 1)
         {
-            AddToClock(10);
+            AddToClock(minPerSecond);
             minuteTimer -= 1;
         }
         clockText.text = currentTime.ToShortTimeString();

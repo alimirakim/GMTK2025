@@ -13,24 +13,30 @@ MonoBehaviour:
   m_Name: SleepInActionSO
   m_EditorClassIdentifier: 
   label: Sleep In
-  baseSuccessChance: 100
+  baseSuccessChance: 1
   requiredWillpower: 0
-  successMoodAffect: 0
-  partialSuccessMoodAffect: 0
-  failureMoodAffect: 0
+  minMinutesDuration: 30
+  maxMinutesDuration: 120
   considerActionMessages:
   - I'm still really tired...
   - 
   - 
   - 
   - 
+  shameType: 3
+  successWillpowerEffect: 0
+  successMoodEffect: 0
+  successWeightEffect: 0
   successMessage: It feels so good to sleep in...
+  partialSuccessWillpowerEffect: 0
+  partialSuccessMoodEffect: 0
+  partialSuccessWeightEffect: 0
   partialSuccessMessage: 
+  failureMoodEffect: 0
+  failureWeightEffect: 0
   failureMessages:
   - 
   - 
   - 
   - 
   - 
-  baseShameValue: 0
-  shameType: 3

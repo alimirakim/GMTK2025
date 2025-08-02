@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: NoonScenarioSO
   m_EditorClassIdentifier: 
   timeOfDay: 12
+  defaultAction: {fileID: 11400000, guid: 958081b0461eaf94a85af823e0bbfeff, type: 2}
   actionsAvailable:
   - {fileID: 11400000, guid: 958081b0461eaf94a85af823e0bbfeff, type: 2}
   - {fileID: 11400000, guid: 2b99d60ddbfe0d94287defb51b07458f, type: 2}

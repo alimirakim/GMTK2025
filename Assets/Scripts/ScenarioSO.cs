@@ -14,23 +14,18 @@ enum ShameType
     Broken
 }
 
-
-
-
 [CreateAssetMenu(fileName = "ScenarioSO", menuName = "Scriptable Objects/ScenarioSO")]
 public class ScenarioSO : ScriptableObject
 {
     [SerializeField] int timeOfDay;
+    [SerializeField] ActionSO defaultAction;
     [SerializeField] List<ActionSO> actionsAvailable;
     [SerializeField] List<ToDoItemSO> toDoItems;
 
-    public List<ActionSO> GetActionsAvailable()
-    {
-        return actionsAvailable;
-    }
+    public ActionSO GetDefaultAction() => defaultAction;
 
-    public List<ToDoItemSO> GetToDoItems()
-    {
-        return toDoItems;
-    }
+    public List<ActionSO> GetActionsAvailable() => actionsAvailable;
+
+    public List<ToDoItemSO> GetToDoItems() => toDoItems;
+    
 }

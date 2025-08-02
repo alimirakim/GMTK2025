@@ -3,17 +3,19 @@ using UnityEngine.UI;
 
 public class Willpower : MonoBehaviour
 {
-    [SerializeField] Slider willpowerMeter;
-    [SerializeField] int willpowerVal;
+    [SerializeField] Slider meter;
+    [SerializeField] int val;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        meter.value = val;
     }
 
     public void UpdateWillpower(int wpToAdd)
     {
-        willpowerVal += wpToAdd;
-        willpowerMeter.value = willpowerVal;
+        val += wpToAdd;
+        meter.value = val;
     }
+
+    public int GetVal() => val;
 }
