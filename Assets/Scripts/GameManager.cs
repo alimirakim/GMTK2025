@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -33,11 +34,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScenarioSO lateNightScenario;
 
     [Header("To-Do List")]
-    [SerializeField] VerticalLayoutGroup toDoCheckboxes;
+    [SerializeField] VerticalLayoutGroup toDoCheckboxGroup;
     [SerializeField] GameObject toDoCheckboxPrefab;
+    [SerializeField] int rectTransformHeight = 50;
 
     [Header("Action Choices")]
-    [SerializeField] VerticalLayoutGroup actionButtons;
+    [SerializeField] VerticalLayoutGroup actionButtonGroup;
     [SerializeField] GameObject actionButtonPrefab;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -93,12 +95,7 @@ public class GameManager : MonoBehaviour
 
     void PopulateToDoList()
     {
-        List<Transform> children = new List<Transform>();
-
-        for (int i = 0; i < toDoCheckboxes.transform.childCount; ++i)
-        {
-            children.Add(toDoCheckboxes.transform.GetChild(i));
-        }
+        List<Transform> children = GetListOfGroupChildren(toDoCheckboxGroup);
 
         foreach (Transform child in children)
         {
@@ -111,23 +108,37 @@ public class GameManager : MonoBehaviour
         {
             string toDoLabel = toDoItem.GetToDoAction().GetLabel();
             // Debug.Log($"toDoLabel {toDoLabel}");
-            GameObject newToDoCheckbox = Instantiate(toDoCheckboxPrefab);
-            newToDoCheckbox.transform.SetParent(toDoCheckboxes.transform);
-            newToDoCheckbox.GetComponent<UnityEngine.UI.Toggle>().isOn = false;
-            Text textComponent = newToDoCheckbox.GetComponentInChildren<Text>();
-            // TODO Even though the text is changes in the editor panel, it doesn't appear in scene
+            GameObject toDoCheckbox = Instantiate(toDoCheckboxPrefab);
+            toDoCheckbox.transform.SetParent(toDoCheckboxGroup.transform);
+
+            // Add some height to let the label render properly
+            RectTransform rectTransform = toDoCheckbox.GetComponent<RectTransform>();
+            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransformHeight);
+
+            Toggle toggle = toDoCheckbox.GetComponent<Toggle>();
+            toggle.isOn = false;
+            toggle.interactable = false;
+
+            Text textComponent = toDoCheckbox.GetComponentInChildren<Text>();
             textComponent.text = toDoLabel;
         }
     }
 
-    void PopulateActionButtons()
+    List<Transform> GetListOfGroupChildren(VerticalLayoutGroup layoutGroup)
     {
         List<Transform> children = new List<Transform>();
 
-        for (int i = 0; i < actionButtons.transform.childCount; ++i)
+        for (int i = 0; i < layoutGroup.transform.childCount; ++i)
         {
-            children.Add(actionButtons.transform.GetChild(i));
+            children.Add(layoutGroup.transform.GetChild(i));
         }
+
+        return children;
+    }
+
+    void PopulateActionButtons()
+    {
+        List<Transform> children = GetListOfGroupChildren(actionButtonGroup);
 
         foreach (Transform child in children)
         {
@@ -139,7 +150,8 @@ public class GameManager : MonoBehaviour
         {
             string actionLabel = action.GetLabel();
             GameObject newActionButton = Instantiate(actionButtonPrefab);
-            newActionButton.transform.SetParent(actionButtons.transform);
+            newActionButton.transform.SetParent(actionButtonGroup.transform);
+
             TextMeshProUGUI textComponent = newActionButton.GetComponentInChildren<TextMeshProUGUI>();
             textComponent.text = actionLabel;
 
@@ -159,9 +171,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void BlahTest()
+
+    void UpdateToDoList(AttemptResult result, ActionSO action)
     {
-        Debug.Log("am I in?");
+        List<Transform> toDoCheckboxes = GetListOfGroupChildren(toDoCheckboxGroup);
+        foreach (Transform toDoCheckbox in toDoCheckboxes)
+        {
+            if (toDoCheckbox.GetComponent<Toggle>().isOn == true)
+                break;
+
+            Text textComponent = toDoCheckbox.GetComponentInChildren<Text>();
+            if (textComponent.text == action.GetLabel())
+            {
+                toDoCheckbox.GetComponent<Toggle>().isOn = true;
+
+                if (result == AttemptResult.PartialSuccess)
+                    textComponent.text += " (kind of)";
+                break;
+            }
+        }
     }
 
     public void AddOnClickToActionButton(ActionSO action, UnityEngine.UI.Button buttonComponent)
@@ -178,22 +206,32 @@ public class GameManager : MonoBehaviour
 
             Debug.Log($"Attempt result: {result}");
 
-            // Skip time based on result's action
+            // Fast forward time based on result's action
             if (result != AttemptResult.Failure)
             {
-                int timeForAction = action.GetTimeDuration();
-                Debug.Log($"time for action: {timeForAction}");
-                timeKeeper.AddToClock(timeForAction);
+                UpdateToDoList(result, action);
+                PassTimeForAction(action);
             }
             else
             {
-                // TODO Mark or partial-mark to-do checkbox if action is on list
-
                 action = currentScenario.GetDefaultAction();
-                int timeForAction = action.GetTimeDuration();
-                Debug.Log($"time for action: {timeForAction}");
-                timeKeeper.AddToClock(timeForAction);
+                PassTimeForAction(action);
             }
         });
+    }
+
+    void PassTimeForAction(ActionSO action)
+    {
+        int timeForAction = action.GetTimeDuration();
+        Debug.Log($"time for action: {timeForAction}");
+
+        // pause realtime clock
+        // speed through clock x3whatever speed
+        // pause clock
+        // show message "Success! You spent x hours/minutes to [action]"
+        // "You failed to [x]. You spent x hours/minutes to [action] instead"
+        // highlight successful actions with green
+        // highlight failed actions with red?
+        timeKeeper.FastForwardClockByMinutes(timeForAction);
     }
 }

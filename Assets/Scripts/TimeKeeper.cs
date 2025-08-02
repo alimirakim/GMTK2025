@@ -3,7 +3,13 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using System.Threading;
+using Unity.VisualScripting;
 
+public enum ClockState
+{
+    Paused,
+    Active,
+}
 
 public class TimeKeeper : MonoBehaviour
 {
@@ -14,7 +20,10 @@ public class TimeKeeper : MonoBehaviour
     [Header("Time")]
     [SerializeField] TextMeshProUGUI clockText;
     [SerializeField] DateTime currentTime;
+    public ClockState clockState = ClockState.Active;
     [SerializeField] int minPerSecond = 1;
+    [SerializeField] int fastForwardMinPerSecond = 10;
+
 
     [Header("Phase of Day")]
     [SerializeField] Image phaseOfDayImage;
@@ -32,8 +41,9 @@ public class TimeKeeper : MonoBehaviour
     float fillFraction;
 
     PhaseOfDay currentPhase = PhaseOfDay.Noon;
+    float fastForwardMinLeft;
 
-    private float minuteTimer = 0;
+    private float minuteTimer = 0f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -79,13 +89,40 @@ public class TimeKeeper : MonoBehaviour
 
     void UpdateClock()
     {
+        if (clockState == ClockState.Paused)
+            return;
+
         minuteTimer += Time.deltaTime;
-        if (minuteTimer > 1)
+
+        // Speed time up x10 if there is time on the fast-forward tracker
+        if (fastForwardMinLeft > 0)
         {
-            AddToClock(minPerSecond);
-            minuteTimer -= 1;
+            if (minuteTimer > 0.1)
+            {
+                AddToClock(minPerSecond);
+                minuteTimer -= 0.1f;
+                fastForwardMinLeft -= 1;
+                if (fastForwardMinLeft <= 0)
+                {
+                    clockState = ClockState.Paused;
+                }
+            }
         }
+        else if (clockState == ClockState.Active)
+        {
+            if (minuteTimer > 1)
+            {
+                AddToClock(minPerSecond);
+                minuteTimer -= 1;
+            }
+        }
+
         clockText.text = currentTime.ToShortTimeString();
+    }
+
+    public void FastForwardClockByMinutes(int minutes)
+    {
+        fastForwardMinLeft = minutes;
     }
 
     void IncrementDayCount()
@@ -104,10 +141,10 @@ public class TimeKeeper : MonoBehaviour
         }
 
         if (currentTime.Day > 1 && currentTime.Hour > 3)
-            {
-                IncrementDayCount();
-                currentTime = GetResetDayTime();
-            }
+        {
+            IncrementDayCount();
+            currentTime = GetResetDayTime();
+        }
     }
 
     public PhaseOfDay GetCurrentPhaseOfDay()
