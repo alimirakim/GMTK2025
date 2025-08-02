@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd1c9913eb6a6b418e0f8d4c9190232, type: 3}
   m_Name: LieDownActionSO
   m_EditorClassIdentifier: 
-  label: 
+  label: Lie Down
   baseSuccessChance: 0
   requiredWillpower: 0
   minMinutesDuration: 0

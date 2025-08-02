@@ -2,21 +2,33 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
+using System.Threading;
 
 
 public class TimeKeeper : MonoBehaviour
 {
-    float timerValue = 3;
+    [Header("Day")]
     [SerializeField] int dayCount = 1;
     [SerializeField] TextMeshProUGUI dayCountText;
+
+    [Header("Time")]
     [SerializeField] TextMeshProUGUI clockText;
     [SerializeField] DateTime currentTime;
+
+    [Header("Phase of Day")]
     [SerializeField] Image phaseOfDayImage;
     [SerializeField] Sprite phaseNoonSprite;
     [SerializeField] Sprite phaseEveningSprite;
     [SerializeField] Sprite phaseDuskSprite;
     [SerializeField] Sprite phaseNightSprite;
     [SerializeField] Sprite phaseLateNightSprite;
+
+    [Header("Choice Timer")]
+    [SerializeField] Image choiceTimerImage;
+    bool isChoiceTimeActive = true;
+    [SerializeField] float choiceTimeMax = 10f;
+    float choiceTimeLeft = 10f;
+    float fillFraction;
 
     PhaseOfDay currentPhase = PhaseOfDay.Noon;
 
@@ -29,11 +41,37 @@ public class TimeKeeper : MonoBehaviour
         dayCountText.text = $"Day {dayCount}";
     }
 
+    void UpdateChoiceTime()
+    {
+        if (isChoiceTimeActive)
+        {
+            choiceTimeLeft -= Time.deltaTime;
+
+            if (choiceTimeLeft > 0)
+            {
+                fillFraction = choiceTimeLeft / choiceTimeMax;
+            }
+            else
+            {
+                isChoiceTimeActive = false;
+                choiceTimeLeft = choiceTimeMax;
+                fillFraction = 1f;
+            }
+            choiceTimerImage.fillAmount = fillFraction;
+        }
+
+    }
+
     // Update is called once per frame
     void Update()
     {
         UpdateClock();
+        UpdateChoiceTime();
+    }
 
+    public void EnableChoiceTime()
+    {
+        isChoiceTimeActive = true;
     }
 
     private DateTime GetResetDayTime()
@@ -47,9 +85,7 @@ public class TimeKeeper : MonoBehaviour
             AddToClock(10);
             minuteTimer -= 1;
         }
-
         clockText.text = currentTime.ToShortTimeString();
-
     }
 
     void IncrementDayCount()

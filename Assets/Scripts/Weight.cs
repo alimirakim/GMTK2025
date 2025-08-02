@@ -1,14 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShameWeight : MonoBehaviour
+public class Weight : MonoBehaviour
 {
     // Grab shame button image
     // method to adjust image size bigger, smaller
     // onclick method to show causes of shame in popups
 
-    [SerializeField] Button shameWeight;
-    [SerializeField] int shameQuantity = 10;
+    [SerializeField] int shameQuantity = 100;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

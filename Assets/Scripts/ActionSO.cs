@@ -16,7 +16,7 @@ public class ActionSO : ScriptableObject
 {
     [SerializeField] string label;
     [SerializeField] float baseSuccessChance;
-    [SerializeField] int requiredWillpower; 
+    [SerializeField] int requiredWillpower;
     [SerializeField] int minMinutesDuration;
     [SerializeField] int maxMinutesDuration;
     // [SerializeField] int consecutiveSuccesses;
@@ -44,4 +44,6 @@ public class ActionSO : ScriptableObject
     [SerializeField] string successMessage;
     [SerializeField] string partialSuccessMessage;
     [SerializeField] List<string> failureMessages;
+
+    public string GetLabel() => label;
 }

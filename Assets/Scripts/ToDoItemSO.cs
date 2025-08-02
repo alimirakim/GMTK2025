@@ -5,5 +5,7 @@ public class ToDoItemSO : ScriptableObject
 {
     [SerializeField] bool isChecked;
     [SerializeField] ActionSO toDoAction;
+
+    public ActionSO GetToDoAction() => toDoAction;
     
 }
