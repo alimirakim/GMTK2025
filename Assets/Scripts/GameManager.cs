@@ -50,6 +50,17 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (TimeKeeperManager.isFastForward == true)
+        {
+            confirmResultsButton.interactable = false;
+        }
+        else
+            confirmResultsButton.interactable = true;
+
+        if (TimeKeeperManager.isNewDay == true)
+        {
+            StartChoiceSession();
+            }
     }
 
     public void StartChoiceSession()
@@ -87,6 +98,28 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
+    bool CheckCurrentSceneIfChanged()
+    {
+                ScenarioSO newCurrentScenario = TimeKeeperManager.GetCurrentPhaseOfDay() switch
+        {
+            PhaseOfDay.Noon => noonScenario,
+            PhaseOfDay.Evening => eveningScenario,
+            PhaseOfDay.Dusk => duskScenario,
+            PhaseOfDay.Night => nightScenario,
+            _ => lateNightScenario,
+        };
+
+        // Update current scene if changed and return true
+        if (CurrentScenario != newCurrentScenario)
+        {
+
+            return true;
+        }
+
+        // Change nothing and return false
+        return false;
+    }
+
     public void DisplayResultsPanel(AttemptResult result, int minPassed, string actionLabel)
     {
         // darkScreen.enabled = true;
@@ -104,7 +137,6 @@ public class GameManager : MonoBehaviour
             _ => $"You failed. You gave up and spent {minPassed} minutes to {actionLabel}. But you got a little energy back...",
         };
 
-
         if (result == AttemptResult.Failure)
         {
             failureAudio.Play();
@@ -114,7 +146,7 @@ public class GameManager : MonoBehaviour
             successAudio.Play();
         }
 
-        
+
 
         confirmResultsButton.interactable = true;
 
@@ -131,6 +163,15 @@ public class GameManager : MonoBehaviour
         // darkScreen.enabled = false;
         darkScreen.SetActive(false);
         resultsPanel.SetActive(false);
-        StartChoiceSession();
+        
+        if (TimeKeeperManager.GetCurrentPhaseOfDay() == PhaseOfDay.LateNight)
+        {
+            UpdateCurrentSceneIfChanged();
+            TimeKeeperManager.ShowSleepPanel();
+        }
+        else
+        {
+            StartChoiceSession();
+        }
     }
 }

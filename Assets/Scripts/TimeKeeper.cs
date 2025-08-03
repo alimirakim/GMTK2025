@@ -49,6 +49,8 @@ public class TimeKeeper : MonoBehaviour
     float fastForwardMinLeft;
 
     private float minuteTimer = 0f;
+    public bool isFastForward = false;
+    public bool isNewDay = false;
 
     public float GetFastForwardMinLeft() => fastForwardMinLeft;
 
@@ -71,6 +73,7 @@ public class TimeKeeper : MonoBehaviour
     }
 
   
+    // TODO Skips over sleep phase
 
     IEnumerator ShowNewPhaseImageCoroutine()
     {
@@ -117,7 +120,7 @@ public class TimeKeeper : MonoBehaviour
 
         minuteTimer += Time.deltaTime;
 
-        // Speed time up x10 if there is time on the fast-forward tracker
+        // Speed time up x20 if there is time on the fast-forward tracker
         if (fastForwardMinLeft > 0)
         {
             if (minuteTimer > 0.01)
@@ -127,6 +130,7 @@ public class TimeKeeper : MonoBehaviour
                 fastForwardMinLeft -= 1;
                 if (fastForwardMinLeft <= 0)
                 {
+                    isFastForward = false;
                     clockState = ClockState.Paused;
                     choiceTimeLeft = 0;
                 }
@@ -141,36 +145,31 @@ public class TimeKeeper : MonoBehaviour
             }
         }
 
-        if (GetCurrentPhaseOfDay() == PhaseOfDay.LateNight)
-        {
-            ShowSleepPanel();
-        }
-
         clockText.text = currentTime.ToShortTimeString();
     }
 
-    void ShowSleepPanel()
+    public void ShowSleepPanel()
     {
         clockState = ClockState.Paused;
         darkScreen.SetActive(true);
         sleepPanel.SetActive(true);
     }
 
-  public void HideSleepPanel()
-    {
-        darkScreen.SetActive(false);
-        sleepPanel.SetActive(false);
-    }
-
     public void OnClickSleep()
     {
         currentTime = GetResetDayTime();
+        Debug.Log($"sleep {currentTime}");
         clockState = ClockState.Active;
+        darkScreen.SetActive(false);
+        sleepPanel.SetActive(false);
+        isNewDay = true;
     }
 
     // wait until return val then continue?
     public void FastForwardClockByMinutes(int minutes)
     {
+        isFastForward = true;
+        choiceTimeLeft = 0;
         fastForwardMinLeft = minutes;
     }
 
@@ -189,7 +188,7 @@ public class TimeKeeper : MonoBehaviour
             UpdatePhaseOfDay();
         }
 
-        if (currentTime.Day > 1 && currentTime.Hour > 3)
+        if (currentPhase == PhaseOfDay.LateNight)
         {
             IncrementDayCount();
             currentTime = GetResetDayTime();

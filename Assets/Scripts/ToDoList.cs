@@ -53,7 +53,7 @@ public class ToDoList : MonoBehaviour
         {
             string toDoLabel = toDoItem.GetToDoAction().GetLabel();
             // Debug.Log($"toDoLabel {toDoLabel}");
-            GameObject toDoCheckbox = Instantiate(toDoCheckboxPrefab);
+            GameObject toDoCheckbox = Instantiate(toDoCheckboxPrefab, toDoCheckboxGroup.GetComponent<Transform>(), false);
             toDoCheckbox.transform.SetParent(toDoCheckboxGroup.transform);
 
             // Add some height to let the label render properly

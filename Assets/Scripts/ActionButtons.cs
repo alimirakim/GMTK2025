@@ -55,7 +55,7 @@ public class ActionButtons : MonoBehaviour
         foreach (ActionSO action in currentActions)
         {
             string actionLabel = action.GetLabel();
-            GameObject newActionButton = Instantiate(actionButtonPrefab);
+            GameObject newActionButton = Instantiate(actionButtonPrefab, actionButtonGroup.GetComponent<Transform>(), false);
             newActionButton.transform.SetParent(actionButtonGroup.transform);
 
             newActionButton.AddComponent<Action>();
@@ -114,6 +114,10 @@ public class ActionButtons : MonoBehaviour
             toDoList.UpdateToDoList(result, executedAction);
             buttonComponent.GetComponent<Image>().sprite = successButtonSprite;
             timeForAction = executedAction.GetTimeDuration();
+            if (action.GetLabel() == "Sleep")
+            {
+                willpower.UpdateWillpower(timeForAction / 5);
+            }
         }
         else
         {
