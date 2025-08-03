@@ -25,8 +25,8 @@ public class TimeKeeper : MonoBehaviour
 
 
     [Header("Phase of Day")]
-    [SerializeField] Image phaseOfDayImage;
-    [SerializeField] Image phaseOfDayBigImage;
+    [SerializeField] UnityEngine.UI.GameObject phaseOfDayImage;
+    [SerializeField] UnityEngine.UI.GameObject phaseOfDayBigImage;
     [SerializeField] Sprite phaseNoonSprite;
     [SerializeField] Sprite phaseEveningSprite;
     [SerializeField] Sprite phaseDuskSprite;
@@ -34,11 +34,16 @@ public class TimeKeeper : MonoBehaviour
     [SerializeField] Sprite phaseLateNightSprite;
 
     [Header("Choice Timer")]
-    [SerializeField] Image choiceTimerImage;
+    [SerializeField] UnityEngine.UI.GameObject choiceTimerImage;
     bool isChoiceTimeActive = true;
     [SerializeField] float choiceTimeMax = 10f;
     float choiceTimeLeft;
     float fillFraction;
+
+    [Header("Sleep Panel")]
+    [SerializeField] UnityEngine.UI.GameObject darkScreen;
+    [SerializeField] UnityEngine.GameObject sleepPanel;
+    [SerializeField] Button continueButton;
 
     PhaseOfDay currentPhase = PhaseOfDay.Noon;
     float fastForwardMinLeft;
@@ -53,7 +58,7 @@ public class TimeKeeper : MonoBehaviour
         currentTime = GetResetDayTime();
         dayCountText.text = $"Day {dayCount}";
         choiceTimeLeft = choiceTimeMax;
-        StartCoroutine(ShowNewPhaseImageCoroutine());
+        // StartCoroutine(ShowNewPhaseImageCoroutine());
 
     }
 
@@ -64,6 +69,8 @@ public class TimeKeeper : MonoBehaviour
         UpdateClock();
         UpdateChoiceTime();
     }
+
+  
 
     IEnumerator ShowNewPhaseImageCoroutine()
     {
@@ -134,7 +141,31 @@ public class TimeKeeper : MonoBehaviour
             }
         }
 
+        if (GetCurrentPhaseOfDay() == PhaseOfDay.LateNight)
+        {
+            ShowSleepPanel();
+        }
+
         clockText.text = currentTime.ToShortTimeString();
+    }
+
+    void ShowSleepPanel()
+    {
+        clockState = ClockState.Paused;
+        darkScreen.enabled = true;
+        sleepPanel.SetActive(true);
+    }
+
+  public void HideSleepPanel()
+    {
+        darkScreen.enabled = false;
+        sleepPanel.SetActive(false);
+    }
+
+    public void OnClickSleep()
+    {
+        currentTime = GetResetDayTime();
+        clockState = ClockState.Active;
     }
 
     // wait until return val then continue?
@@ -211,7 +242,7 @@ public class TimeKeeper : MonoBehaviour
                 break;
         }
 
-        StartCoroutine(ShowNewPhaseImageCoroutine());
+        // StartCoroutine(ShowNewPhaseImageCoroutine());
     }
 
 }

@@ -13,5 +13,17 @@ MonoBehaviour:
   m_Name: DuskScenarioSO
   m_EditorClassIdentifier: 
   timeOfDay: 0
-  actionsAvailable: []
-  toDoItems: []
+  defaultAction: {fileID: 11400000, guid: 958081b0461eaf94a85af823e0bbfeff, type: 2}
+  actionsAvailable:
+  - {fileID: 11400000, guid: 958081b0461eaf94a85af823e0bbfeff, type: 2}
+  - {fileID: 11400000, guid: 2b99d60ddbfe0d94287defb51b07458f, type: 2}
+  - {fileID: 11400000, guid: c907a5af557daaa439b0a32856b29d17, type: 2}
+  - {fileID: 11400000, guid: f352e93922fa64242bd9e73e80dcce55, type: 2}
+  - {fileID: 11400000, guid: 352a5df0f999d194c97cf5ae9d712c74, type: 2}
+  - {fileID: 11400000, guid: 877dc65b2e9ae0c429a09fd9110cbb52, type: 2}
+  - {fileID: 11400000, guid: ac10c037d1107cb44b80d3b46967afcb, type: 2}
+  toDoItems:
+  - {fileID: 11400000, guid: 389bca035495a81449308f88d8c62da7, type: 2}
+  - {fileID: 11400000, guid: d5372684480e4a84094e875875803172, type: 2}
+  - {fileID: 11400000, guid: 702fdb2e8efbeaa4f96fc309c9083e18, type: 2}
+  - {fileID: 11400000, guid: 56ee1fe3f5374a347992148d90803ea9, type: 2}

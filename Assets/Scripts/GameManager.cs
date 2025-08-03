@@ -1,13 +1,6 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 
@@ -33,6 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScenarioSO lateNightScenario;
 
     [Header("Results Panel")]
+    [SerializeField] Image darkScreen;
     [SerializeField] GameObject resultsPanel;
     [SerializeField] TextMeshProUGUI resultsMessage;
     [SerializeField] Button confirmResultsButton;
@@ -55,7 +49,7 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    void StartChoiceSession()
+    public void StartChoiceSession()
     {
         bool isNewPhase = UpdateCurrentSceneIfChanged();
         if (isNewPhase)
@@ -92,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     public void DisplayResultsPanel(AttemptResult result, int minPassed, string actionLabel)
     {
+        darkScreen.enabled = true;
         resultsPanel.SetActive(true);
         confirmResultsButton.interactable = false;
         Debug.Log($"is the button usable {confirmResultsButton.interactable}");
@@ -99,9 +94,11 @@ public class GameManager : MonoBehaviour
         resultsMessage.text = result switch
         {
             AttemptResult.Success => $"Success! You spent {minPassed} minutes to {actionLabel}.",
-            AttemptResult.PartialSuccess => $"You tried! You spent {minPassed} minutes attempting to {actionLabel}.",
-            _ => $"You failed. You gave up and spent {minPassed} minutes to {actionLabel}.",
+            AttemptResult.PartialSuccess => $"You did okay! You spent {minPassed} minutes doing your best to {actionLabel}.",
+            _ => $"You failed. You gave up and spent {minPassed} minutes to {actionLabel}. But you got a little energy back...",
         };
+
+        
 
         confirmResultsButton.interactable = true;
 
@@ -115,6 +112,7 @@ public class GameManager : MonoBehaviour
 
     public void OnClickConfirmButton()
     {
+        darkScreen.SetActive(false);
         resultsPanel.SetActive(false);
         StartChoiceSession();
     }

@@ -13,5 +13,20 @@ MonoBehaviour:
   m_Name: EveningScenarioSO
   m_EditorClassIdentifier: 
   timeOfDay: 0
-  actionsAvailable: []
-  toDoItems: []
+  defaultAction: {fileID: 11400000, guid: 958081b0461eaf94a85af823e0bbfeff, type: 2}
+  actionsAvailable:
+  - {fileID: 11400000, guid: 958081b0461eaf94a85af823e0bbfeff, type: 2}
+  - {fileID: 11400000, guid: 2b99d60ddbfe0d94287defb51b07458f, type: 2}
+  - {fileID: 11400000, guid: 854b70c457ea16242846be214848dad0, type: 2}
+  - {fileID: 11400000, guid: 330747de830e73846adad7c72488e47b, type: 2}
+  - {fileID: 11400000, guid: fa8dcf575729b7446a8981c619c7885f, type: 2}
+  - {fileID: 11400000, guid: 0dd35f722804dc14ba40f242dd8f24ff, type: 2}
+  - {fileID: 11400000, guid: 2c1fc9b1f6f4628409815be3cfe35f5a, type: 2}
+  - {fileID: 11400000, guid: 3bf4d69871e808740a41f1cc64b6a3cf, type: 2}
+  - {fileID: 11400000, guid: ac10c037d1107cb44b80d3b46967afcb, type: 2}
+  toDoItems:
+  - {fileID: 11400000, guid: a2af3fc4311bd6e459471e5f1391d8e7, type: 2}
+  - {fileID: 11400000, guid: 1dea88c311b60c94baa81aaee690457d, type: 2}
+  - {fileID: 11400000, guid: e6d7a05e14a905c449b004643bdc6f04, type: 2}
+  - {fileID: 11400000, guid: 56ee1fe3f5374a347992148d90803ea9, type: 2}
+  - {fileID: 11400000, guid: aa156ae2534568f408d284c342c98d1d, type: 2}

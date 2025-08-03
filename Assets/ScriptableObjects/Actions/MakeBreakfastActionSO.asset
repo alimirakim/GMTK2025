@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fdd1c9913eb6a6b418e0f8d4c9190232, type: 3}
+  m_Name: MakeBreakfastActionSO
+  m_EditorClassIdentifier: 
+  label: Make Breakfast
+  baseSuccessChance: 0.9
+  requiredWillpower: 3
+  minMinutesDuration: 20
+  maxMinutesDuration: 40
+  considerActionMessages: []
+  shameType: 3
+  successWillpowerEffect: 5
+  successMoodEffect: 20
+  successWeightEffect: -2
+  successMessage: 
+  partialSuccessWillpowerEffect: 3
+  partialSuccessMoodEffect: 10
+  partialSuccessWeightEffect: 0
+  partialSuccessMessage: 
+  failureMoodEffect: -10
+  failureWeightEffect: -5
+  failureMessages: []

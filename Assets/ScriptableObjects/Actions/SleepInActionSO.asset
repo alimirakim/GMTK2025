@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd1c9913eb6a6b418e0f8d4c9190232, type: 3}
   m_Name: SleepInActionSO
   m_EditorClassIdentifier: 
-  label: Sleep In
+  label: Sleep
   baseSuccessChance: 1
   requiredWillpower: 0
   minMinutesDuration: 30

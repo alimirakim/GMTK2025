@@ -15,8 +15,8 @@ MonoBehaviour:
   label: Check the internet
   baseSuccessChance: 1
   requiredWillpower: 0
-  minMinutesDuration: 30
-  maxMinutesDuration: 90
+  minMinutesDuration: 20
+  maxMinutesDuration: 60
   considerActionMessages: []
   shameType: 0
   successWillpowerEffect: 0

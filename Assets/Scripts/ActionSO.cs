@@ -7,10 +7,10 @@ using UnityEngine;
 public class ActionSO : ScriptableObject
 {
     [SerializeField] string label;
-    [SerializeField] float baseSuccessChance;
-    [SerializeField] int requiredWillpower;
-    [SerializeField] int minMinutesDuration;
-    [SerializeField] int maxMinutesDuration;
+    [SerializeField] public float baseSuccessChance;
+    [SerializeField] public int requiredWillpower;
+    [SerializeField] public int minMinutesDuration;
+    [SerializeField] public int maxMinutesDuration;
     // [SerializeField] int consecutiveSuccesses;
     // [SerializeField] int consecutiveFailures; // can success chance change with consecutive failures? 'urgency' meter? or separate secret meters like hygiene
 

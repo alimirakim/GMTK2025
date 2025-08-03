@@ -9,9 +9,8 @@ public class ShameSO : ScriptableObject
     [SerializeField] int weightValue;
     [SerializeField] List<string> messages;
 
-    public string ShameType { get; }
-    public int WeightValue { get; set; }
+    public List<string> GetMessages() => messages;
 
-    public List<string> Messages { get; }
+    public int GetWeightValue() => weightValue;
     
 }

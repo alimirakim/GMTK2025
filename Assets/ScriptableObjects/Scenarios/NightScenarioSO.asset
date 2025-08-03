@@ -13,5 +13,17 @@ MonoBehaviour:
   m_Name: NightScenarioSO
   m_EditorClassIdentifier: 
   timeOfDay: 0
-  actionsAvailable: []
-  toDoItems: []
+  defaultAction: {fileID: 11400000, guid: 958081b0461eaf94a85af823e0bbfeff, type: 2}
+  actionsAvailable:
+  - {fileID: 11400000, guid: 958081b0461eaf94a85af823e0bbfeff, type: 2}
+  - {fileID: 11400000, guid: 2b99d60ddbfe0d94287defb51b07458f, type: 2}
+  - {fileID: 11400000, guid: c85cea22e8cf56f41b3e87016cd48c25, type: 2}
+  - {fileID: 11400000, guid: 99c2f30736f83e04d8fcbdd2af4009e0, type: 2}
+  - {fileID: 11400000, guid: 0643d10934d1c4d42999e231409e4dc3, type: 2}
+  - {fileID: 11400000, guid: 8f1491f6d8f8d044e8f99ed5e2162f65, type: 2}
+  - {fileID: 11400000, guid: 44f72d7df4a13ef4b860e25b53c08012, type: 2}
+  toDoItems:
+  - {fileID: 11400000, guid: 02870679377d4544fac38b556e17467d, type: 2}
+  - {fileID: 11400000, guid: 19a03dbdf8340ff4aba9ebd9e3308c6f, type: 2}
+  - {fileID: 11400000, guid: 790c71ff71033d8479c28ac7f17e3d9c, type: 2}
+  - {fileID: 11400000, guid: 120ff6bf0c0d970438e28cac30073674, type: 2}

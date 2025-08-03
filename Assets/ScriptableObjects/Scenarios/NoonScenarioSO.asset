@@ -19,6 +19,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2b99d60ddbfe0d94287defb51b07458f, type: 2}
   - {fileID: 11400000, guid: 00593558a5bf59b43a2dddd7d6933d89, type: 2}
   - {fileID: 11400000, guid: 7939b4ff1f7cdc7419c6da3550134842, type: 2}
+  - {fileID: 11400000, guid: f352e93922fa64242bd9e73e80dcce55, type: 2}
+  - {fileID: 11400000, guid: d52ba387661320145907652e2eaaa50c, type: 2}
   toDoItems:
   - {fileID: 11400000, guid: 31d81996c41d2764a8d74fe58e5c2184, type: 2}
   - {fileID: 11400000, guid: 7ef829b1ed2585f4abb7d8faff0aa30d, type: 2}
+  - {fileID: 11400000, guid: d5372684480e4a84094e875875803172, type: 2}
