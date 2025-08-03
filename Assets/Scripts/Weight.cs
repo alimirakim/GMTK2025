@@ -8,6 +8,7 @@ public class Weight : MonoBehaviour
     // onclick method to show causes of shame in popups
 
     [SerializeField] int shameQuantity = 100;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

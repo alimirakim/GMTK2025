@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: ShowerActionSO
   m_EditorClassIdentifier: 
   label: Take a Shower
-  baseSuccessChance: 0.05
-  requiredWillpower: 60
+  baseSuccessChance: 0.5
+  requiredWillpower: 20
   minMinutesDuration: 15
   maxMinutesDuration: 20
   considerActionMessages:

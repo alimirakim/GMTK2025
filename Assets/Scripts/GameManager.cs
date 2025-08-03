@@ -1,20 +1,16 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Rendering.LookDev;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
-public enum PhaseOfDay
-{
-    Noon,
-    Evening,
-    Dusk,
-    Night,
-    LateNight
-}
+
 
 public class GameManager : MonoBehaviour
 {
@@ -22,36 +18,37 @@ public class GameManager : MonoBehaviour
     [SerializeField] TimeKeeper timeKeeper;
     [SerializeField] Willpower willpower;
     [SerializeField] Weight weight;
+    [SerializeField] ToDoList toDoList;
+    [SerializeField] ActionButtons actionButtons;
+    // [SerializeField] 
     // [SerializeField] Mood mood;
 
 
     [Header("Scenarios")]
-    [SerializeField] ScenarioSO currentScenario;
+    [field: SerializeField] public ScenarioSO CurrentScenario { get; private set; }
     [SerializeField] ScenarioSO noonScenario;
     [SerializeField] ScenarioSO eveningScenario;
     [SerializeField] ScenarioSO duskScenario;
     [SerializeField] ScenarioSO nightScenario;
     [SerializeField] ScenarioSO lateNightScenario;
 
-    [Header("To-Do List")]
-    [SerializeField] VerticalLayoutGroup toDoCheckboxGroup;
-    [SerializeField] GameObject toDoCheckboxPrefab;
-    [SerializeField] int rectTransformHeight = 50;
+    [Header("Results Panel")]
+    public bool isResultsPanelActive = false;
+    [SerializeField] GameObject resultsPanel;
+    [SerializeField] TextMeshProUGUI resultsMessage;
+    [SerializeField] Button confirmResultsButton;
 
-    [Header("Action Choices")]
-    [SerializeField] VerticalLayoutGroup actionButtonGroup;
-    [SerializeField] GameObject actionButtonPrefab;
+
+    // TODO results script
+    // TODO action script?
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        PopulateToDoList();
-        PopulateActionButtons();
-        // StartChoiceScenario();
-        // select action - check for success, pass time based on action
-        // check item if completed
-        // change weight size based on action
-        // change willpower dial
 
+        toDoList.PopulateToDoList();
+        actionButtons.PopulateActionButtons(willpower.GetVal());
     }
 
     // Update is called once per frame
@@ -59,15 +56,28 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    void StartChoiceScenario()
+    // public ScenarioSO GetCurrentScenario() => currentScenario;
+    // public Willpower GetWillPower() => willpower;
+    // public TimeKeeper GetTimeKeeper() => timeKeeper;
+    // public ToDoList GetToDoList() => toDoList;
+
+    // public ScenarioSO CurrentScenario { get; set; }
+    // public ScenarioSO GetCurrentScensario() => currentScenario
+    public Willpower WillpowerManager { get; set; }
+    public TimeKeeper TimeKeeperManager { get; set; }
+    public ToDoList ToDoListManager { get; set; }
+    public Weight WeightManager { get; set; }
+
+    void StartChoiceSession()
     {
         bool isNewPhase = UpdateCurrentSceneIfChanged();
         if (isNewPhase)
         {
-            PopulateToDoList();
-            PopulateActionButtons();
+            toDoList.PopulateToDoList();
+            actionButtons.PopulateActionButtons(willpower.GetVal());
         }
-        timeKeeper.EnableChoiceTime();
+        timeKeeper.RestartChoiceTime();
+        timeKeeper.clockState = ClockState.Active;
     }
 
     bool UpdateCurrentSceneIfChanged()
@@ -83,9 +93,9 @@ public class GameManager : MonoBehaviour
         };
 
         // Update current scene if changed and return true
-        if (currentScenario != newCurrentScenario)
+        if (CurrentScenario != newCurrentScenario)
         {
-            currentScenario = newCurrentScenario;
+            CurrentScenario = newCurrentScenario;
             return true;
         }
 
@@ -93,145 +103,32 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    void PopulateToDoList()
+    public void DisplayResultsPanel(AttemptResult result, int minPassed, string actionLabel)
     {
-        List<Transform> children = GetListOfGroupChildren(toDoCheckboxGroup);
+        resultsPanel.SetActive(true);
+        confirmResultsButton.interactable = false;
+        Debug.Log($"is the button usable {confirmResultsButton.interactable}");
 
-        foreach (Transform child in children)
+        resultsMessage.text = result switch
         {
-            Destroy(child.GameObject());
-        }
+            AttemptResult.Success => $"Success! You spent {minPassed} minutes to {actionLabel}.",
+            AttemptResult.PartialSuccess => $"You tried! You spent {minPassed} minutes attempting to {actionLabel}.",
+            _ => $"You failed. You gave up and spent {minPassed} minutes to {actionLabel}.",
+        };
 
-        List<ToDoItemSO> currentToDoItems = currentScenario.GetToDoItems();
+        confirmResultsButton.interactable = true;
 
-        foreach (ToDoItemSO toDoItem in currentToDoItems)
-        {
-            string toDoLabel = toDoItem.GetToDoAction().GetLabel();
-            // Debug.Log($"toDoLabel {toDoLabel}");
-            GameObject toDoCheckbox = Instantiate(toDoCheckboxPrefab);
-            toDoCheckbox.transform.SetParent(toDoCheckboxGroup.transform);
+        // TODO Pause confirmButton until fast forward is finished.
+        // coroutines, event listeners, async await??
+        // UnityEvent clockPausedEvent = new UnityEvent();
+        // clockPausedEvent.AddListener(() => confirmResultsButton.interactable = true);
+        // timeKeeper.InvokeGivenEvent(clockPausedEvent);
 
-            // Add some height to let the label render properly
-            RectTransform rectTransform = toDoCheckbox.GetComponent<RectTransform>();
-            rectTransform.sizeDelta = new Vector2(rectTransform.sizeDelta.x, rectTransformHeight);
-
-            Toggle toggle = toDoCheckbox.GetComponent<Toggle>();
-            toggle.isOn = false;
-            toggle.interactable = false;
-
-            Text textComponent = toDoCheckbox.GetComponentInChildren<Text>();
-            textComponent.text = toDoLabel;
-        }
     }
 
-    List<Transform> GetListOfGroupChildren(VerticalLayoutGroup layoutGroup)
+    public void OnClickConfirmButton()
     {
-        List<Transform> children = new List<Transform>();
-
-        for (int i = 0; i < layoutGroup.transform.childCount; ++i)
-        {
-            children.Add(layoutGroup.transform.GetChild(i));
-        }
-
-        return children;
-    }
-
-    void PopulateActionButtons()
-    {
-        List<Transform> children = GetListOfGroupChildren(actionButtonGroup);
-
-        foreach (Transform child in children)
-        {
-            Destroy(child.GameObject());
-        }
-
-        List<ActionSO> currentActions = currentScenario.GetActionsAvailable();
-        foreach (ActionSO action in currentActions)
-        {
-            string actionLabel = action.GetLabel();
-            GameObject newActionButton = Instantiate(actionButtonPrefab);
-            newActionButton.transform.SetParent(actionButtonGroup.transform);
-
-            TextMeshProUGUI textComponent = newActionButton.GetComponentInChildren<TextMeshProUGUI>();
-            textComponent.text = actionLabel;
-
-            Button buttonComponent = newActionButton.GetComponent<Button>();
-            AddOnClickToActionButton(action, buttonComponent);
-
-            // Disable button if lacking required WP
-            if (willpower.GetVal() < action.GetRequiredWillpower())
-            {
-                buttonComponent.interactable = false;
-            }
-
-
-            // reset choiceTimer clock, show action results, fast forward clock based on action
-            // Apply action effects - willpower meter, shame size, message bubbles, mood meter and expression
-            // wait for confirmation before continuing to next decision point
-        }
-    }
-
-
-    void UpdateToDoList(AttemptResult result, ActionSO action)
-    {
-        List<Transform> toDoCheckboxes = GetListOfGroupChildren(toDoCheckboxGroup);
-        foreach (Transform toDoCheckbox in toDoCheckboxes)
-        {
-            if (toDoCheckbox.GetComponent<Toggle>().isOn == true)
-                break;
-
-            Text textComponent = toDoCheckbox.GetComponentInChildren<Text>();
-            if (textComponent.text == action.GetLabel())
-            {
-                toDoCheckbox.GetComponent<Toggle>().isOn = true;
-
-                if (result == AttemptResult.PartialSuccess)
-                    textComponent.text += " (kind of)";
-                break;
-            }
-        }
-    }
-
-    public void AddOnClickToActionButton(ActionSO action, UnityEngine.UI.Button buttonComponent)
-    {
-        Debug.Log($"adding on Click {buttonComponent}");
-        buttonComponent.onClick.AddListener(() =>
-        {
-            Debug.Log("in the clicky!");
-            // Deplete willpower
-            willpower.UpdateWillpower(-action.GetRequiredWillpower());
-
-            // Get attempt result
-            AttemptResult result = action.GetAttemptResult();
-
-            Debug.Log($"Attempt result: {result}");
-
-            // Fast forward time based on result's action
-            if (result != AttemptResult.Failure)
-            {
-                UpdateToDoList(result, action);
-                PassTimeForAction(action);
-            }
-            else
-            {
-                action = currentScenario.GetDefaultAction();
-                PassTimeForAction(action);
-            }
-        });
-    }
-
-    void PassTimeForAction(ActionSO action)
-    {
-        int timeForAction = action.GetTimeDuration();
-        Debug.Log($"time for action: {timeForAction}");
-
-        // pause realtime clock
-        // speed through clock x3whatever speed
-        // pause clock
-        // show message "Success! You spent x hours/minutes to [action]"
-        // "You failed to [x]. You spent x hours/minutes to [action] instead"
-        // highlight successful actions with green
-        // highlight failed actions with red?
-        timeKeeper.FastForwardClockByMinutes(timeForAction);
+        resultsPanel.SetActive(false);
+        StartChoiceSession();
     }
 }

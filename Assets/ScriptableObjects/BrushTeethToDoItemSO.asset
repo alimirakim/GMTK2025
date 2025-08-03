@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f038594eaa9b6647b6b7eba126c5128, type: 3}
   m_Name: BrushTeethToDoItemSO
   m_EditorClassIdentifier: 
-  isChecked: 1
+  isChecked: 0
   toDoAction: {fileID: 11400000, guid: 00593558a5bf59b43a2dddd7d6933d89, type: 2}

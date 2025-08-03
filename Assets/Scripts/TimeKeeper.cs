@@ -4,12 +4,11 @@ using UnityEngine.UI;
 using System;
 using System.Threading;
 using Unity.VisualScripting;
+using UnityEngine.Events;
+using System.Threading.Tasks;
+using System.Collections;
 
-public enum ClockState
-{
-    Paused,
-    Active,
-}
+
 
 public class TimeKeeper : MonoBehaviour
 {
@@ -27,6 +26,7 @@ public class TimeKeeper : MonoBehaviour
 
     [Header("Phase of Day")]
     [SerializeField] Image phaseOfDayImage;
+    [SerializeField] Image phaseOfDayBigImage;
     [SerializeField] Sprite phaseNoonSprite;
     [SerializeField] Sprite phaseEveningSprite;
     [SerializeField] Sprite phaseDuskSprite;
@@ -45,12 +45,16 @@ public class TimeKeeper : MonoBehaviour
 
     private float minuteTimer = 0f;
 
+    public float GetFastForwardMinLeft() => fastForwardMinLeft;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentTime = GetResetDayTime();
         dayCountText.text = $"Day {dayCount}";
         choiceTimeLeft = choiceTimeMax;
+        StartCoroutine(ShowNewPhaseImageCoroutine());
+
     }
 
 
@@ -59,6 +63,20 @@ public class TimeKeeper : MonoBehaviour
     {
         UpdateClock();
         UpdateChoiceTime();
+    }
+
+    IEnumerator ShowNewPhaseImageCoroutine()
+    {
+        Debug.Log("Started Coroutine at timestamp : " + Time.time);
+        phaseOfDayBigImage.enabled = true;
+        yield return new WaitForSeconds(1);
+        phaseOfDayBigImage.enabled = false;
+    }
+
+    public void RestartChoiceTime()
+    {
+        choiceTimeLeft = choiceTimeMax;
+        isChoiceTimeActive = true;
     }
 
     public void EnableChoiceTime()
@@ -77,15 +95,13 @@ public class TimeKeeper : MonoBehaviour
             else
             {
                 isChoiceTimeActive = false;
-                choiceTimeLeft = choiceTimeMax;
-                fillFraction = 1f;
+                fillFraction = 0;
             }
             choiceTimerImage.fillAmount = fillFraction;
         }
     }
 
-    private DateTime GetResetDayTime()
-    { return new DateTime(1, 1, 1, 12, 0, 0); }
+    private DateTime GetResetDayTime() => new DateTime(1, 1, 1, 12, 0, 0);
 
     void UpdateClock()
     {
@@ -97,14 +113,15 @@ public class TimeKeeper : MonoBehaviour
         // Speed time up x10 if there is time on the fast-forward tracker
         if (fastForwardMinLeft > 0)
         {
-            if (minuteTimer > 0.1)
+            if (minuteTimer > 0.01)
             {
                 AddToClock(minPerSecond);
-                minuteTimer -= 0.1f;
+                minuteTimer -= 0.01f;
                 fastForwardMinLeft -= 1;
                 if (fastForwardMinLeft <= 0)
                 {
                     clockState = ClockState.Paused;
+                    choiceTimeLeft = 0;
                 }
             }
         }
@@ -120,6 +137,7 @@ public class TimeKeeper : MonoBehaviour
         clockText.text = currentTime.ToShortTimeString();
     }
 
+    // wait until return val then continue?
     public void FastForwardClockByMinutes(int minutes)
     {
         fastForwardMinLeft = minutes;
@@ -168,25 +186,32 @@ public class TimeKeeper : MonoBehaviour
         switch (currentPhase)
         {
             case PhaseOfDay.Noon:
+                phaseOfDayBigImage.sprite = phaseNoonSprite;
                 phaseOfDayImage.sprite = phaseNoonSprite;
                 break;
 
             case PhaseOfDay.Evening:
+                phaseOfDayBigImage.sprite = phaseEveningSprite;
                 phaseOfDayImage.sprite = phaseEveningSprite;
                 break;
 
             case PhaseOfDay.Dusk:
+                phaseOfDayBigImage.sprite = phaseDuskSprite;
                 phaseOfDayImage.sprite = phaseDuskSprite;
                 break;
 
             case PhaseOfDay.Night:
+                phaseOfDayBigImage.sprite = phaseNightSprite;
                 phaseOfDayImage.sprite = phaseNightSprite;
                 break;
 
             case PhaseOfDay.LateNight:
+                phaseOfDayBigImage.sprite = phaseLateNightSprite;
                 phaseOfDayImage.sprite = phaseLateNightSprite;
                 break;
         }
+
+        StartCoroutine(ShowNewPhaseImageCoroutine());
     }
 
 }

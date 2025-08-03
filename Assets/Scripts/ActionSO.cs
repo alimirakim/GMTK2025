@@ -1,22 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-enum MoodType // deterioration rate
-{
-    Boredom,
-    Loneliness,
-    Breath,
-    Hygiene,
-    Atmosphere,
-    Hunger,
-}
 
-public enum AttemptResult
-{
-    Failure,
-    PartialSuccess,
-    Success
-}
 
 [CreateAssetMenu(fileName = "ActionSO", menuName = "Scriptable Objects/ActionSO")]
 public class ActionSO : ScriptableObject
