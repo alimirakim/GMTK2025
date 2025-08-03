@@ -387,18 +387,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 851d26b7a39a1ba46862165f04243e45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeKeeper: {fileID: 1446523490}
-  willpower: {fileID: 1053006014}
-  weight: {fileID: 13863646}
-  toDoList: {fileID: 2070173825}
-  actionButtons: {fileID: 1453602372}
-  currentScenario: {fileID: 11400000, guid: 7dd57481a5c751149bd093db0b0b684a, type: 2}
+  <TimeKeeperManager>k__BackingField: {fileID: 1446523490}
+  <WillpowerManager>k__BackingField: {fileID: 1053006014}
+  <WeightManager>k__BackingField: {fileID: 13863646}
+  <ToDoListManager>k__BackingField: {fileID: 2070173825}
+  <ActionButtonsManager>k__BackingField: {fileID: 1453602372}
+  <CurrentScenario>k__BackingField: {fileID: 11400000, guid: 7dd57481a5c751149bd093db0b0b684a, type: 2}
   noonScenario: {fileID: 11400000, guid: 7dd57481a5c751149bd093db0b0b684a, type: 2}
   eveningScenario: {fileID: 11400000, guid: 68e2f542bf118844a90cc4b89f91e341, type: 2}
   duskScenario: {fileID: 11400000, guid: 20d3d652c5f5521419f0600216d53fda, type: 2}
   nightScenario: {fileID: 11400000, guid: cf36a52fa1936d74bb6629b5e6fe5eb9, type: 2}
   lateNightScenario: {fileID: 11400000, guid: 2f82c33b63a8167448c2a6371fb872ad, type: 2}
-  isResultsPanelActive: 0
   resultsPanel: {fileID: 1489189947}
   resultsMessage: {fileID: 1085515870}
   confirmResultsButton: {fileID: 1630282184}

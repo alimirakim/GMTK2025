@@ -15,11 +15,11 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    [SerializeField] TimeKeeper timeKeeper;
-    [SerializeField] Willpower willpower;
-    [SerializeField] Weight weight;
-    [SerializeField] ToDoList toDoList;
-    [SerializeField] ActionButtons actionButtons;
+    [field: SerializeField] public TimeKeeper TimeKeeperManager { get; private set; }
+    [field: SerializeField] public Willpower WillpowerManager { get; private set; }
+    [field: SerializeField] public Weight WeightManager { get; private set; }
+    [field: SerializeField] public ToDoList ToDoListManager { get; private set; }
+    [field: SerializeField] public ActionButtons ActionButtonsManager { get; private set; }
     // [SerializeField] 
     // [SerializeField] Mood mood;
 
@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScenarioSO lateNightScenario;
 
     [Header("Results Panel")]
-    public bool isResultsPanelActive = false;
     [SerializeField] GameObject resultsPanel;
     [SerializeField] TextMeshProUGUI resultsMessage;
     [SerializeField] Button confirmResultsButton;
@@ -47,8 +46,8 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-        toDoList.PopulateToDoList();
-        actionButtons.PopulateActionButtons(willpower.GetVal());
+        ToDoListManager.PopulateToDoList();
+        ActionButtonsManager.PopulateActionButtons(WillpowerManager.GetVal());
     }
 
     // Update is called once per frame
@@ -56,34 +55,22 @@ public class GameManager : MonoBehaviour
     {
     }
 
-    // public ScenarioSO GetCurrentScenario() => currentScenario;
-    // public Willpower GetWillPower() => willpower;
-    // public TimeKeeper GetTimeKeeper() => timeKeeper;
-    // public ToDoList GetToDoList() => toDoList;
-
-    // public ScenarioSO CurrentScenario { get; set; }
-    // public ScenarioSO GetCurrentScensario() => currentScenario
-    public Willpower WillpowerManager { get; set; }
-    public TimeKeeper TimeKeeperManager { get; set; }
-    public ToDoList ToDoListManager { get; set; }
-    public Weight WeightManager { get; set; }
-
     void StartChoiceSession()
     {
         bool isNewPhase = UpdateCurrentSceneIfChanged();
         if (isNewPhase)
         {
-            toDoList.PopulateToDoList();
-            actionButtons.PopulateActionButtons(willpower.GetVal());
+            ToDoListManager.PopulateToDoList();
+            ActionButtonsManager.PopulateActionButtons(WillpowerManager.GetVal());
         }
-        timeKeeper.RestartChoiceTime();
-        timeKeeper.clockState = ClockState.Active;
+        TimeKeeperManager.RestartChoiceTime();
+        TimeKeeperManager.clockState = ClockState.Active;
     }
 
     bool UpdateCurrentSceneIfChanged()
     {
 
-        ScenarioSO newCurrentScenario = timeKeeper.GetCurrentPhaseOfDay() switch
+        ScenarioSO newCurrentScenario = TimeKeeperManager.GetCurrentPhaseOfDay() switch
         {
             PhaseOfDay.Noon => noonScenario,
             PhaseOfDay.Evening => eveningScenario,
