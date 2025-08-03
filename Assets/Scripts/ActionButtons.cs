@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ActionButtons : MonoBehaviour
 {
     [SerializeField] VerticalLayoutGroup actionButtonGroup;
-    [SerializeField] UnityEngine.GameObject actionButtonPrefab;
+    [SerializeField] GameObject actionButtonPrefab;
 
     [SerializeField] Sprite successButtonSprite;
     [SerializeField] Sprite failedButtonSprite;
@@ -55,7 +55,7 @@ public class ActionButtons : MonoBehaviour
         foreach (ActionSO action in currentActions)
         {
             string actionLabel = action.GetLabel();
-            UnityEngine.GameObject newActionButton = Instantiate(actionButtonPrefab);
+            GameObject newActionButton = Instantiate(actionButtonPrefab);
             newActionButton.transform.SetParent(actionButtonGroup.transform);
 
             newActionButton.AddComponent<Action>();
@@ -100,7 +100,7 @@ public class ActionButtons : MonoBehaviour
         if (result == AttemptResult.Success)
         {
             toDoList.UpdateToDoList(result, executedAction);
-            buttonComponent.GetComponent<UnityEngine.UI.GameObject>().sprite = successButtonSprite;
+            buttonComponent.GetComponent<Image>().sprite = successButtonSprite;
             timeForAction = executedAction.GetTimeDuration();
             if (action.GetLabel() == "Sleep")
             {
@@ -112,12 +112,12 @@ public class ActionButtons : MonoBehaviour
         else if (result == AttemptResult.PartialSuccess)
         {
             toDoList.UpdateToDoList(result, executedAction);
-            buttonComponent.GetComponent<UnityEngine.UI.GameObject>().sprite = successButtonSprite;
+            buttonComponent.GetComponent<Image>().sprite = successButtonSprite;
             timeForAction = executedAction.GetTimeDuration();
         }
         else
         {
-            buttonComponent.GetComponent<UnityEngine.UI.GameObject>().sprite = failedButtonSprite;
+            buttonComponent.GetComponent<Image>().sprite = failedButtonSprite;
             executedAction = currentScenario.GetDefaultAction();
 
             // Adds willpower based on sleep

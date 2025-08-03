@@ -25,8 +25,8 @@ public class TimeKeeper : MonoBehaviour
 
 
     [Header("Phase of Day")]
-    [SerializeField] UnityEngine.UI.GameObject phaseOfDayImage;
-    [SerializeField] UnityEngine.UI.GameObject phaseOfDayBigImage;
+    [SerializeField] Image phaseOfDayImage;
+    [SerializeField] Image phaseOfDayBigImage;
     [SerializeField] Sprite phaseNoonSprite;
     [SerializeField] Sprite phaseEveningSprite;
     [SerializeField] Sprite phaseDuskSprite;
@@ -34,15 +34,15 @@ public class TimeKeeper : MonoBehaviour
     [SerializeField] Sprite phaseLateNightSprite;
 
     [Header("Choice Timer")]
-    [SerializeField] UnityEngine.UI.GameObject choiceTimerImage;
+    [SerializeField] Image choiceTimerImage;
     bool isChoiceTimeActive = true;
     [SerializeField] float choiceTimeMax = 10f;
     float choiceTimeLeft;
     float fillFraction;
 
     [Header("Sleep Panel")]
-    [SerializeField] UnityEngine.UI.GameObject darkScreen;
-    [SerializeField] UnityEngine.GameObject sleepPanel;
+    [SerializeField] GameObject darkScreen;
+    [SerializeField] GameObject sleepPanel;
     [SerializeField] Button continueButton;
 
     PhaseOfDay currentPhase = PhaseOfDay.Noon;
@@ -152,13 +152,13 @@ public class TimeKeeper : MonoBehaviour
     void ShowSleepPanel()
     {
         clockState = ClockState.Paused;
-        darkScreen.enabled = true;
+        darkScreen.SetActive(true);
         sleepPanel.SetActive(true);
     }
 
   public void HideSleepPanel()
     {
-        darkScreen.enabled = false;
+        darkScreen.SetActive(false);
         sleepPanel.SetActive(false);
     }
 

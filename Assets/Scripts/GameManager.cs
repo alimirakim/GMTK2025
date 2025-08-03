@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     // [SerializeField] 
     // [SerializeField] Mood mood;
 
+    [SerializeField] AudioSource successAudio;
+    [SerializeField] AudioSource failureAudio;
+
 
     [Header("Scenarios")]
     [field: SerializeField] public ScenarioSO CurrentScenario { get; private set; }
@@ -26,7 +29,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScenarioSO lateNightScenario;
 
     [Header("Results Panel")]
-    [SerializeField] Image darkScreen;
+    [SerializeField] GameObject darkScreen;
     [SerializeField] GameObject resultsPanel;
     [SerializeField] TextMeshProUGUI resultsMessage;
     [SerializeField] Button confirmResultsButton;
@@ -86,7 +89,10 @@ public class GameManager : MonoBehaviour
 
     public void DisplayResultsPanel(AttemptResult result, int minPassed, string actionLabel)
     {
-        darkScreen.enabled = true;
+        // darkScreen.enabled = true;
+        darkScreen.SetActive(true);
+        // darkScreen.color = Color.black;
+
         resultsPanel.SetActive(true);
         confirmResultsButton.interactable = false;
         Debug.Log($"is the button usable {confirmResultsButton.interactable}");
@@ -97,6 +103,16 @@ public class GameManager : MonoBehaviour
             AttemptResult.PartialSuccess => $"You did okay! You spent {minPassed} minutes doing your best to {actionLabel}.",
             _ => $"You failed. You gave up and spent {minPassed} minutes to {actionLabel}. But you got a little energy back...",
         };
+
+
+        if (result == AttemptResult.Failure)
+        {
+            failureAudio.Play();
+        }
+        else
+        {
+            successAudio.Play();
+        }
 
         
 
@@ -112,6 +128,7 @@ public class GameManager : MonoBehaviour
 
     public void OnClickConfirmButton()
     {
+        // darkScreen.enabled = false;
         darkScreen.SetActive(false);
         resultsPanel.SetActive(false);
         StartChoiceSession();

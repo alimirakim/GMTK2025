@@ -13,9 +13,9 @@ public class Weight : MonoBehaviour
 
 
     [field: SerializeField] public List<ShameSO> ShameList { get; private set; }
-    [SerializeField] UnityEngine.UI.GameObject weightImage;
-    [SerializeField] UnityEngine.GameObject messageTextPrefab;
-    List<UnityEngine.GameObject> messageTextObjects = new List<UnityEngine.GameObject>();
+    [SerializeField] Image weightImage;
+    [SerializeField] GameObject messageTextPrefab;
+    List<GameObject> messageTextObjects = new List<GameObject>();
     [SerializeField] int messageMinX = -400;
     [SerializeField] int messageMaxX = 400;
     [SerializeField] int messageMinY = -300;
@@ -67,7 +67,7 @@ public class Weight : MonoBehaviour
     IEnumerator RemoveMessages()
     {
 
-        foreach (UnityEngine.GameObject messageTextObject in messageTextObjects)
+        foreach (GameObject messageTextObject in messageTextObjects)
         {
             Destroy(messageTextObject);
             yield return new WaitForSeconds(speedOfMessageRemoval);
@@ -85,7 +85,7 @@ public class Weight : MonoBehaviour
             List<string> messages = shame.GetMessages();
             foreach (string message in messages)
             {
-                UnityEngine.GameObject messageTextObject = Instantiate(messageTextPrefab, weightImage.transform);
+                GameObject messageTextObject = Instantiate(messageTextPrefab, weightImage.transform);
                 messageTextObjects.Add(messageTextObject);
                 TextMeshProUGUI textMeshPro = messageTextObject.GetComponent<TextMeshProUGUI>();
                 textMeshPro.text = message;
